@@ -36,8 +36,13 @@ def _get(df, keyword):
     c = _col(df, keyword)
     return df[c] if c else None
 
-def _close(df):  return _get(df, "close") or df.iloc[:, 4]
-def _volume(df): return _get(df, "volume") or df.iloc[:, 5]
+def _close(df):
+    s = _get(df, "close")
+    return s if s is not None else df.iloc[:, 4]
+
+def _volume(df):
+    s = _get(df, "volume")
+    return s if s is not None else df.iloc[:, 5]
 def _dates(df):
     c = _col(df, "time") or _col(df, "date")
     s = df[c] if c else df.iloc[:, 0]
